@@ -78,7 +78,7 @@ export async function POST(req: Request) {
       phoneNumberId: registerPhoneNumberData.id,
     };
 
-    console.log("📡 Sending request to Vapi API:", payload);
+    console.log("Sending request to Vapi API:", payload);
     const response = await fetch(vapiURL, {
       method: "POST",
       headers: {
