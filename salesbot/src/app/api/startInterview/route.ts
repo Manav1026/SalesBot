@@ -59,7 +59,7 @@ export async function POST(req: Request) {
     });
 
     const registerPhoneNumberData = await registerPhoneNumberResponse.json();
-    console.log("🔹 Registered Phone Response:", registerPhoneNumberData);
+    console.log("Registered Phone Response:", registerPhoneNumberData);
 
     if (!registerPhoneNumberData.id) {
       return NextResponse.json(
@@ -72,7 +72,7 @@ export async function POST(req: Request) {
     const payload = {
       assistantId,
       customer: {
-        number: phoneNumber,
+        number: `+1${phoneNumber}`,
         numberE164CheckEnabled: false,
       },
       phoneNumberId: registerPhoneNumberData.id,
