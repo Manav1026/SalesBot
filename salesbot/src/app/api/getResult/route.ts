@@ -8,7 +8,11 @@ export async function GET() {
     if (error) throw new Error(error.message);
 
     return NextResponse.json(data, { status: 200 });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    } else {
+      console.error("An unknown error occurred.");
+    }
   }
 }

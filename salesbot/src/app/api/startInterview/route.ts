@@ -106,10 +106,9 @@ export async function POST(req: Request) {
       success: true,
       listenUrl: data.monitor.listenUrl,
     });
-  } catch (error: any) {
-    return NextResponse.json(
-      { error: "Internal Server Error", details: error.message },
-      { status: 500 }
-    );
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
   }
 }
