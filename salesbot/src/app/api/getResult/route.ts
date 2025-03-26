@@ -1,10 +1,18 @@
-import { createClient } from "@supabase/supabase-js";
+import { supabase } from "@/lib/supabase";
+import { NextResponse } from "next/server";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+export async function GET() {
+  try {
+    const { data, error } = await supabase.from("InterviewResults").select("*");
 
-if (!supabaseUrl || !supabaseKey) {
-  throw new Error("Supabase URL or Key is missing");
+    if (error) throw new Error(error.message);
+
+    return NextResponse.json(data, { status: 200 });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    } else {
+      console.error("An unknown error occurred.");
+    }
+  }
 }
-
-export const supabase = createClient(supabaseUrl, supabaseKey);
